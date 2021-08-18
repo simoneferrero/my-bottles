@@ -1,14 +1,52 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "dev": "next dev",
+    "lint": "eslint --cache --fix",
+    "prepare": "husky install",
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "yarn test --watch"
   },
   "dependencies": {
+    "grommet": "^2.17.4",
+    "grommet-icons": "^4.6.0",
     "mongodb": "^3.5.9",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.1",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": ">=6",
+    "jest": "^27.0.6",
+    "lint-staged": ">=10",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
