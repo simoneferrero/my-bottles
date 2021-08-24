@@ -16,13 +16,13 @@ describe('Given <Home />', () => {
     render(<Home size="small" />)
     userEvent.click(screen.getByLabelText('Add new bottle button'))
 
-    expect(screen.getByText('overlay')).toBeInTheDocument()
+    expect(screen.getByText('Add New Bottle')).toBeInTheDocument()
   })
 
   it('should render the overlay if size is small', () => {
     render(<Home size="large" />)
     userEvent.click(screen.getByLabelText('Add new bottle button'))
 
-    expect(screen.getByText('sidebar')).toBeInTheDocument()
+    expect(screen.getByText('Add New Bottle')).toBeInTheDocument()
   })
 })

@@ -1,23 +1,17 @@
-import { Box, Button, Collapsible } from 'grommet'
-import { FormClose } from 'grommet-icons'
+import { Box, Collapsible } from 'grommet'
+
+import DrawerHeader from '../DrawerHeader'
 
 type Props = {
   children: React.ReactNode
   isOpen: boolean
   onClose: () => void
+  title: string
 }
 
-const Sidebar = ({ children, isOpen, onClose }: Props): JSX.Element => (
+const Sidebar = ({ children, isOpen, onClose, title }: Props): JSX.Element => (
   <Collapsible direction="horizontal" open={isOpen}>
-    <Box
-      background="light-2"
-      tag="header"
-      justify="start"
-      align="center"
-      direction="row"
-    >
-      <Button a11yTitle="Close" icon={<FormClose />} onClick={onClose} />
-    </Box>
+    <DrawerHeader onClose={onClose} title={title} />
     <Box
       flex
       width="medium"

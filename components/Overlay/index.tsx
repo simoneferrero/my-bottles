@@ -1,24 +1,18 @@
-import { Box, Layer, Button } from 'grommet'
-import { FormClose } from 'grommet-icons'
+import { Box, Layer } from 'grommet'
+
+import DrawerHeader from '../DrawerHeader'
 
 type Props = {
   children: React.ReactNode
   isOpen: boolean
   onClose: () => void
+  title: string
 }
 
-const Overlay = ({ children, isOpen, onClose }: Props): JSX.Element =>
+const Overlay = ({ children, isOpen, onClose, title }: Props): JSX.Element =>
   !isOpen ? null : (
     <Layer full onClickOutside={onClose} onEsc={onClose}>
-      <Box
-        background="light-2"
-        tag="header"
-        justify="end"
-        align="center"
-        direction="row"
-      >
-        <Button a11yTitle="Close" icon={<FormClose />} onClick={onClose} />
-      </Box>
+      <DrawerHeader onClose={onClose} title={title} />
       <Box fill background="light-2" align="center" justify="center">
         {children}
       </Box>
