@@ -1,6 +1,11 @@
 import { Box, Button, Heading } from 'grommet'
 import { Add } from 'grommet-icons'
-import { useState } from 'react'
+import { useAppSelector, useAppDispatch } from '../app/hooks'
+
+import {
+  selectIsAddBottleOpen,
+  toggleIsAddBottleOpen,
+} from '../features/bottles/slice'
 
 import AppBar from '../components/AppBar'
 import Overlay from '../components/Overlay'
@@ -12,8 +17,10 @@ type Props = {
 }
 
 const Home = ({ size }: Props): JSX.Element => {
-  const [showAddBottle, setShowAddBottle] = useState(false)
   const addBottleTitle = 'Add New Bottle'
+
+  const isAddBottleOpen = useAppSelector(selectIsAddBottleOpen)
+  const dispatch = useAppDispatch()
 
   return (
     <Box fill>
@@ -24,7 +31,7 @@ const Home = ({ size }: Props): JSX.Element => {
         <Button
           a11yTitle="Add new bottle button"
           icon={<Add />}
-          onClick={() => setShowAddBottle(true)}
+          onClick={() => dispatch(toggleIsAddBottleOpen())}
         />
       </AppBar>
       <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
@@ -33,16 +40,16 @@ const Home = ({ size }: Props): JSX.Element => {
         </Box>
         {size === 'small' ? (
           <Overlay
-            isOpen={showAddBottle}
-            onClose={() => setShowAddBottle(false)}
+            isOpen={isAddBottleOpen}
+            onClose={() => dispatch(toggleIsAddBottleOpen())}
             title={addBottleTitle}
           >
             <AddBottleForm />
           </Overlay>
         ) : (
           <Sidebar
-            isOpen={showAddBottle}
-            onClose={() => setShowAddBottle(false)}
+            isOpen={isAddBottleOpen}
+            onClose={() => dispatch(toggleIsAddBottleOpen())}
             title={addBottleTitle}
           >
             <AddBottleForm />

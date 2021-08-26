@@ -12,6 +12,7 @@ module.exports = {
     '!**/mocks/**',
     '!**/*config.*',
     '!**/lib/mongodb.ts',
+    '!**/_app.tsx',
   ],
   testEnvironment: 'jsdom',
   coverageThreshold: {

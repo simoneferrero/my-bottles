@@ -301,7 +301,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.9.2":
   version "7.15.3"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
   integrity sha1-LhwogMoRjlsvmYgyK9inZWoyUCs=
@@ -691,6 +691,16 @@
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@open-draft/until/-/until-1.0.3.tgz#db9cc719191a62e7d9200f6e7bab21c5b848adca"
   integrity sha1-25zHGRkaYufZIA9ue6shxbhIrco=
 
+"@reduxjs/toolkit@^1.6.1":
+  version "1.6.1"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@reduxjs/toolkit/-/toolkit-1.6.1.tgz#7bc83b47352a663bf28db01e79d17ba54b98ade9"
+  integrity sha1-e8g7RzUqZjvyjbAeedF7pUuYrek=
+  dependencies:
+    immer "^9.0.1"
+    redux "^4.1.0"
+    redux-thunk "^2.3.0"
+    reselect "^4.0.0"
+
 "@shelf/jest-mongodb@^2.0.3":
   version "2.0.3"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@shelf/jest-mongodb/-/jest-mongodb-2.0.3.tgz#0e4a99d70b88582e116228494f4d066a9912db74"
@@ -813,6 +823,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/hoist-non-react-statics@^3.3.0":
+  version "3.3.1"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha1-ESSq/lEYy1kZd66xzqrtEHDrA58=
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/inquirer@^7.3.3":
   version "7.3.3"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@types/inquirer/-/inquirer-7.3.3.tgz#92e6676efb67fa6925c69a2ee638f67a822952ac"
@@ -877,6 +895,25 @@
   version "15.7.4"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha1-/PcgXCXf95Xuea8eMNosl5CAjxE=
+
+"@types/react-redux@^7.1.16":
+  version "7.1.18"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@types/react-redux/-/react-redux-7.1.18.tgz#2bf8fd56ebaae679a90ebffe48ff73717c438e04"
+  integrity sha1-K/j9Vuuq5nmpDr/+SP9zcXxDjgQ=
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.0"
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+    redux "^4.0.0"
+
+"@types/react@*":
+  version "17.0.19"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/@types/react/-/react-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
+  integrity sha1-jyqF6BgKQ7V5ZrI30mopSB2syZE=
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
 
 "@types/react@^17.0.18":
   version "17.0.18"
@@ -2079,11 +2116,6 @@ depd@^1.1.0, depd@~1.1.2:
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
-dequal@2.0.2:
-  version "2.0.2"
-  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
-  integrity sha1-hcoiAl46h+Ze91p6Q3s1KEp+MZ0=
-
 des.js@^1.0.0:
   version "1.0.1"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/des.js/-/des.js-1.0.1.tgz#5382142e1bdc53f85d86d53e5f4aa7deb91e0843"
@@ -2917,7 +2949,7 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.2.0:
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.2.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha1-7OCsr3HWLClpwuxZ/v9CpLGoW0U=
@@ -3019,6 +3051,11 @@ image-size@1.0.0:
   integrity sha1-WLMf5HQ7HOwKCsJvXJFNPFsvB1A=
   dependencies:
     queue "6.0.2"
+
+immer@^9.0.1:
+  version "9.0.5"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/immer/-/immer-9.0.5.tgz#a7154f34fe7064f15f00554cc94c66cc0bf453ec"
+  integrity sha1-pxVPNP5wZPFfAFVMyUxmzAv0U+w=
 
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
@@ -5000,10 +5037,22 @@ react-is@17.0.2, react-is@^17.0.1:
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha1-5pHUqOnHiTZWVVOas3J2Kw77VPA=
 
-react-is@^16.7.0, react-is@^16.8.1:
+react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=
+
+react-redux@^7.2.4:
+  version "7.2.4"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
+  integrity sha1-HrtHQDK3LYBt4uBRnNB3YeIi4iU=
+  dependencies:
+    "@babel/runtime" "^7.12.1"
+    "@types/react-redux" "^7.1.16"
+    hoist-non-react-statics "^3.3.2"
+    loose-envify "^1.4.0"
+    prop-types "^15.7.2"
+    react-is "^16.13.1"
 
 react-refresh@0.8.3:
   version "0.8.3"
@@ -5079,6 +5128,18 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha1-UcLBmhhe1Rh6qpotCLZm0NZGdiI=
+
+redux@^4.0.0, redux@^4.1.0, redux@^4.1.1:
+  version "4.1.1"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/redux/-/redux-4.1.1.tgz#76f1c439bb42043f985fbd9bf21990e60bd67f47"
+  integrity sha1-dvHEObtCBD+YX72b8hmQ5gvWf0c=
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+
 regenerator-runtime@^0.13.4:
   version "0.13.9"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
@@ -5111,6 +5172,11 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha1-iaf92TgmEmcxjq/hT5wy5ZjDaQk=
+
+reselect@^4.0.0:
+  version "4.0.0"
+  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
+  integrity sha1-8lKYMOXT0OAhQIskaiBu9OpEN/c=
 
 resolve-cwd@^3.0.0:
   version "3.0.0"
@@ -5678,13 +5744,6 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
-
-swr@^0.5.6:
-  version "0.5.6"
-  resolved "https://artifactory.gamesys.co.uk:443/artifactory/api/npm/gamesys-ps-community-npm/swr/-/swr-0.5.6.tgz#70bfe9bc9d7ac49a064be4a0f4acf57982e55a31"
-  integrity sha1-cL/pvJ16xJoGS+Sg9Kz1eYLlWjE=
-  dependencies:
-    dequal "2.0.2"
 
 symbol-tree@^3.2.4:
   version "3.2.4"
