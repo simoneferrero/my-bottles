@@ -24,7 +24,7 @@ const AddBottleForm = (): JSX.Element => {
       quantity: Number(formValues.quantity),
     }
     try {
-      await axios.post('/api/bottles', JSON.stringify(parsedFormValues))
+      await axios.post('/api/bottles', parsedFormValues)
 
       setFormValues(initialState)
     } catch (error) {
@@ -136,6 +136,7 @@ const AddBottleForm = (): JSX.Element => {
                 max="100"
                 min="0"
                 onChange={handleChange('volume', isVolumeValid)}
+                step=".1"
                 title="Type in the alcoholic volume of the bottle"
                 type="number"
                 value={formValues.volume}

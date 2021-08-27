@@ -2,29 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store'
 
 interface Bottles {
-  isAddBottleOpen: boolean
+  showAddBottle: boolean
 }
 
 const initialState: Bottles = {
-  isAddBottleOpen: false,
+  showAddBottle: false,
 }
 
 export const bottlesSlice = createSlice({
   name: 'bottles',
   initialState,
   reducers: {
-    toggleIsAddBottleOpen: (state) => {
-      state.isAddBottleOpen = !state.isAddBottleOpen
+    setShowAddBottle: (state, { payload }: PayloadAction<boolean>) => {
+      state.showAddBottle = payload
     },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload
-    // },
   },
 })
 
-export const { toggleIsAddBottleOpen } = bottlesSlice.actions
+export const { setShowAddBottle } = bottlesSlice.actions
 
-export const selectIsAddBottleOpen = (state: RootState): boolean =>
-  state.bottles.isAddBottleOpen
+export const selectShowAddBottle = (state: RootState): boolean =>
+  state.bottles.showAddBottle
 
 export default bottlesSlice.reducer
