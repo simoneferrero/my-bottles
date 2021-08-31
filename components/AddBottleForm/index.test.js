@@ -9,7 +9,6 @@ import AddBottleForm from './'
 
 const consoleErrorMock = jest
   .spyOn(console, 'error')
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   .mockImplementation(() => {})
 
 describe('Given <AddBottleForm />', () => {

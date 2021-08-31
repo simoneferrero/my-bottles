@@ -1,10 +1,27 @@
 import React from 'react'
 import { render, screen } from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
+import { setupServer } from 'msw/node'
+
+import { successHandlers } from '../mocks/handlers'
 
 import Home from '../pages/'
 
 describe('Given <Home />', () => {
+  const server = setupServer(successHandlers.getBottlesEmpty)
+
+  beforeAll(() => {
+    server.listen()
+  })
+
+  afterEach(() => {
+    server.resetHandlers()
+  })
+
+  afterAll(() => {
+    server.close()
+  })
+
   it('should render the title', () => {
     render(<Home size="small" />)
 

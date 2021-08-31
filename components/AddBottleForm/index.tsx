@@ -20,7 +20,7 @@ const AddBottleForm = (): JSX.Element => {
     const parsedFormValues = {
       ...formValues,
       category: formValues.category.value,
-      type: formValues.type.value,
+      type: formValues?.type?.value,
       quantity: Number(formValues.quantity),
     }
     try {

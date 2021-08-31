@@ -6,12 +6,12 @@ import {
   selectShowAddBottle,
   setShowAddBottle,
 } from '../features/bottles/slice'
-import { useGetBottlesQuery } from '../services/bottles'
 
 import AppBar from '../components/AppBar'
 import Overlay from '../components/Overlay'
 import Sidebar from '../components/Sidebar'
 import AddBottleForm from '../components/AddBottleForm'
+import BottlesContainer from '../features/bottles/BottlesContainer'
 
 type Props = {
   size: string
@@ -19,9 +19,6 @@ type Props = {
 
 const Home = ({ size }: Props): JSX.Element => {
   const addBottleTitle = 'Add New Bottle'
-
-  // TODO: move into BottlesContainer
-  const { data, error, isLoading } = useGetBottlesQuery('')
 
   const showAddBottle = useAppSelector(selectShowAddBottle)
   const dispatch = useAppDispatch()
@@ -39,15 +36,7 @@ const Home = ({ size }: Props): JSX.Element => {
         />
       </AppBar>
       <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
-        <Box flex align="center" justify="center">
-          {error ? (
-            <>Oh no, there was an error</>
-          ) : isLoading ? (
-            <>Loading...</>
-          ) : data ? (
-            <>There are bottles</>
-          ) : null}
-        </Box>
+        <BottlesContainer />
         {size === 'small' ? (
           <Overlay
             isOpen={showAddBottle}
