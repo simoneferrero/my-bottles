@@ -8,7 +8,11 @@ export default async (
   const { db } = await connectToDatabase()
 
   const getBottles = async () => {
-    const bottles = await db.collection('bottles').find({}).toArray()
+    const bottles = await db
+      .collection('bottles')
+      .find({})
+      .sort({ name: 1 })
+      .toArray()
 
     return bottles
   }

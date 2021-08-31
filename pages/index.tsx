@@ -24,7 +24,7 @@ const Home = ({ size }: Props): JSX.Element => {
   const dispatch = useAppDispatch()
 
   return (
-    <Box fill>
+    <Box fill overflow="hidden">
       <AppBar>
         <Heading level="3" margin="none">
           My Bottles
@@ -35,7 +35,7 @@ const Home = ({ size }: Props): JSX.Element => {
           onClick={() => dispatch(setShowAddBottle(true))}
         />
       </AppBar>
-      <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
+      <Box direction="row" flex>
         <BottlesContainer />
         {size === 'small' ? (
           <Overlay

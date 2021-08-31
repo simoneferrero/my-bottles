@@ -1,16 +1,4 @@
-interface BottleType {
-  label: string
-  value: string
-}
-interface BottleCategory {
-  label: string
-  value: string
-  showYear?: boolean
-  types?: {
-    label: string
-    value: string
-  }[]
-}
+import { BottleCategory, BottleType } from '../types/Bottle'
 
 export const WINE_TYPES: BottleType[] = [
   {

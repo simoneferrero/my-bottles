@@ -38,7 +38,7 @@ describe('Given <BottlesContainer />', () => {
 
       expect(loadingMessage).toBeInTheDocument()
 
-      const wineBottleName = await screen.findByText(wineBottle.name)
+      const wineBottleName = await screen.findByText(RegExp(wineBottle.name))
 
       expect(wineBottleName).toBeInTheDocument()
 

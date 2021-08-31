@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from 'grommet'
 
+import BottleCard from '../../components/BottleCard'
+
 import {
   getBottles,
   selectAllBottles,
@@ -27,17 +29,19 @@ const BottlesContainer = (): JSX.Element => {
   } else if (!bottles.length) {
     body = 'There are no bottles in your collection.'
   } else {
-    body = bottles.map(({ _id, name }) => <Box key={_id}>{name}</Box>)
+    body = bottles.map((bottle) => <BottleCard {...bottle} key={bottle._id} />)
   }
 
   return (
     <Box
       data-test="test"
       flex
-      flex-wrap={true}
+      wrap
+      direction="row"
       align="center"
       justify="center"
       pad="medium"
+      overflow="scroll"
     >
       {body}
     </Box>

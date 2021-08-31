@@ -18,3 +18,11 @@ export const beerBottle: Bottle = {
   volume: '4.3',
   quantity: 10,
 }
+
+export const spiritBottle: Bottle = {
+  _id: '512e02ded49eg5ae7c8f9583',
+  category: 'SPIRIT',
+  name: 'Russian Standard Platinum Vodka',
+  volume: '43',
+  quantity: 1,
+}

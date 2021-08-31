@@ -17,11 +17,15 @@ const AddBottleForm = (): JSX.Element => {
   const [formValues, setFormValues] = useState(initialState)
 
   const handleSubmit = async (): Promise<void> => {
+    const selectedCategory = BOTTLE_CATEGORIES.find(
+      (bottleCategory) => bottleCategory === formValues.category
+    )
     const parsedFormValues = {
       ...formValues,
       category: formValues.category.value,
       type: formValues?.type?.value,
       quantity: Number(formValues.quantity),
+      ...(selectedCategory.showYear && { year: formValues.year }),
     }
     try {
       await axios.post('/api/bottles', parsedFormValues)
