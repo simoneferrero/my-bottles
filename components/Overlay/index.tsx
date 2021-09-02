@@ -13,7 +13,13 @@ const Overlay = ({ children, isOpen, onClose, title }: Props): JSX.Element =>
   !isOpen ? null : (
     <Layer full onClickOutside={onClose} onEsc={onClose}>
       <DrawerHeader onClose={onClose} title={title} />
-      <Box fill background="light-2" align="center" justify="center">
+      <Box
+        data-testid="overlay"
+        fill
+        background="light-2"
+        align="center"
+        justify="center"
+      >
         {children}
       </Box>
     </Layer>

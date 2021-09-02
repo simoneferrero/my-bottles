@@ -12,6 +12,7 @@ export interface BottleType {
   label: string
   value: string
 }
+
 export interface BottleCategory {
   label: 'Wine' | 'Beer' | 'Spirit'
   value: 'WINE' | 'BEER' | 'SPIRIT'
@@ -20,4 +21,14 @@ export interface BottleCategory {
     label: string
     value: string
   }[]
+}
+
+export type BottleFormState = {
+  _id?: string
+  category?: BottleCategory
+  type?: BottleType
+  year?: string
+  name: string
+  volume: string
+  quantity: string
 }

@@ -1,16 +1,11 @@
 import { Box, Button, Heading } from 'grommet'
 import { Add } from 'grommet-icons'
-import { useAppSelector, useAppDispatch } from '../app/hooks'
+import { useAppDispatch } from '../app/hooks'
 
-import {
-  selectShowAddBottle,
-  setShowAddBottle,
-} from '../features/bottles/slice'
+import { setShowAddBottle } from '../features/bottles/slice'
 
 import AppBar from '../components/AppBar'
-import Overlay from '../components/Overlay'
-import Sidebar from '../components/Sidebar'
-import AddBottleForm from '../components/AddBottleForm'
+import AddBottleForm from '../features/bottles/AddBottleForm'
 import BottlesContainer from '../features/bottles/BottlesContainer'
 
 type Props = {
@@ -18,9 +13,6 @@ type Props = {
 }
 
 const Home = ({ size }: Props): JSX.Element => {
-  const addBottleTitle = 'Add New Bottle'
-
-  const showAddBottle = useAppSelector(selectShowAddBottle)
   const dispatch = useAppDispatch()
 
   return (
@@ -37,23 +29,7 @@ const Home = ({ size }: Props): JSX.Element => {
       </AppBar>
       <Box direction="row" flex>
         <BottlesContainer />
-        {size === 'small' ? (
-          <Overlay
-            isOpen={showAddBottle}
-            onClose={() => dispatch(setShowAddBottle(false))}
-            title={addBottleTitle}
-          >
-            <AddBottleForm />
-          </Overlay>
-        ) : (
-          <Sidebar
-            isOpen={showAddBottle}
-            onClose={() => dispatch(setShowAddBottle(false))}
-            title={addBottleTitle}
-          >
-            <AddBottleForm />
-          </Sidebar>
-        )}
+        <AddBottleForm size={size} />
       </Box>
     </Box>
   )

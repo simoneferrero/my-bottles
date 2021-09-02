@@ -1,40 +1,33 @@
 import { Box, Button, Form, FormField, Select, TextInput } from 'grommet'
 import { useState } from 'react'
-import axios from 'axios'
+
+import Overlay from '../Overlay'
+import Sidebar from '../Sidebar'
 
 import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
-const AddBottleForm = (): JSX.Element => {
+import { BottleFormState } from '../../types/Bottle'
+
+type Props = {
+  initialState: BottleFormState
+  isOpen: boolean
+  onClose: () => void
+  onSubmit: (formValues: BottleFormState, setFormValues?) => () => Promise<void>
+  size: string
+  title: string
+}
+
+const BottleForm = ({
+  initialState,
+  isOpen,
+  onClose,
+  onSubmit,
+  size,
+  title,
+}: Props): JSX.Element => {
   const currentYear = String(new Date().getFullYear())
-  const initialState = {
-    category: undefined,
-    type: undefined,
-    name: '',
-    year: currentYear,
-    quantity: '0',
-    volume: '0',
-  }
   const [formValues, setFormValues] = useState(initialState)
 
-  const handleSubmit = async (): Promise<void> => {
-    const selectedCategory = BOTTLE_CATEGORIES.find(
-      (bottleCategory) => bottleCategory === formValues.category
-    )
-    const parsedFormValues = {
-      ...formValues,
-      category: formValues.category.value,
-      type: formValues?.type?.value,
-      quantity: Number(formValues.quantity),
-      ...(selectedCategory.showYear && { year: formValues.year }),
-    }
-    try {
-      await axios.post('/api/bottles', parsedFormValues)
-
-      setFormValues(initialState)
-    } catch (error) {
-      console.error(error)
-    }
-  }
   const handleSelect =
     (key: string, forcedValues: { [key: string]: string }) =>
     ({ option }) => {
@@ -80,14 +73,14 @@ const AddBottleForm = (): JSX.Element => {
     return numberValue >= 0
   }
 
-  return (
+  const formBody = (
     <Box
       direction="column"
       flex
       overflow={{ horizontal: 'hidden' }}
       pad="medium"
     >
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={onSubmit(formValues, setFormValues)}>
         <FormField htmlFor="category" label="Category">
           <Select
             id="category"
@@ -167,6 +160,16 @@ const AddBottleForm = (): JSX.Element => {
       </Form>
     </Box>
   )
+
+  return size === 'small' ? (
+    <Overlay isOpen={isOpen} onClose={onClose} title={title}>
+      {formBody}
+    </Overlay>
+  ) : (
+    <Sidebar isOpen={isOpen} onClose={onClose} title={title}>
+      {formBody}
+    </Sidebar>
+  )
 }
 
-export default AddBottleForm
+export default BottleForm

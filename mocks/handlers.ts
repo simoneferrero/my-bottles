@@ -3,8 +3,11 @@ import { rest } from 'msw'
 import { wineBottle, beerBottle } from './bottles'
 
 export const successHandlers = {
-  postBottle: rest.post('/api/bottles', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(req.body))
+  postBottle: rest.post('/api/bottles', ({ body }, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({ ...body, _id: 'someidforthebottle' })
+    )
   }),
   getBottles: rest.get('/api/bottles', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json([wineBottle, beerBottle]))

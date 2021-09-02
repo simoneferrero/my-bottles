@@ -13,6 +13,7 @@ const Sidebar = ({ children, isOpen, onClose, title }: Props): JSX.Element => (
   <Collapsible direction="horizontal" open={isOpen}>
     <DrawerHeader onClose={onClose} title={title} />
     <Box
+      data-testid="sidebar"
       flex
       width="medium"
       background="light-2"
