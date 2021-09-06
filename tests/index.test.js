@@ -8,7 +8,7 @@ import { successHandlers, errorHandlers } from '../mocks/handlers'
 import Home from '../pages/'
 
 describe('Given <Home />', () => {
-  const server = setupServer(successHandlers.getBottlesEmpty)
+  const server = setupServer(successHandlers.getBottles)
 
   const getAddNewBottleButton = () => screen.getByLabelText('Add')
   const getAddNewBottleTitle = () => screen.queryByText('Add New Bottle')
@@ -22,17 +22,11 @@ describe('Given <Home />', () => {
   const getWineOption = () => screen.getByText('Wine')
   const getRedOption = () => screen.getByText('Red')
 
-  const consoleErrorMock = jest
-    .spyOn(console, 'error')
-    .mockImplementation(() => {})
-
   beforeAll(() => {
     server.listen()
   })
 
   beforeEach(() => {
-    consoleErrorMock.mockReset()
-
     render(<Home size="large" />)
   })
 
@@ -41,7 +35,6 @@ describe('Given <Home />', () => {
   })
 
   afterAll(() => {
-    consoleErrorMock.mockRestore()
     server.close()
   })
 
@@ -56,13 +49,13 @@ describe('Given <Home />', () => {
       userEvent.click(getWineOption())
       userEvent.click(getTypeInput())
       userEvent.click(getRedOption())
-      fireEvent.change(getNameInput(), { target: { value: 'Barbera' } })
-      fireEvent.change(getYearInput(), { target: { value: '1990' } })
-      fireEvent.change(getVolumeInput(), { target: { value: '14' } })
-      fireEvent.change(getQuantityInput(), { target: { value: '5' } })
+      fireEvent.change(getNameInput(), { target: { value: 'Barolo' } })
+      fireEvent.change(getYearInput(), { target: { value: '1955' } })
+      fireEvent.change(getVolumeInput(), { target: { value: '12' } })
+      fireEvent.change(getQuantityInput(), { target: { value: '1' } })
     })
 
-    it('should submit the data on success', async () => {
+    it('should add the new bottle on success', async () => {
       server.use(successHandlers.postBottle)
 
       const addNewBottleTitle = getAddNewBottleTitle()
@@ -72,6 +65,7 @@ describe('Given <Home />', () => {
 
       await waitFor(() => {
         expect(addNewBottleTitle).not.toBeInTheDocument()
+        expect(screen.getByText('Barolo (1955)')).toBeInTheDocument()
       })
     })
 
@@ -85,7 +79,7 @@ describe('Given <Home />', () => {
 
       await waitFor(() => {
         expect(addNewBottleTitle).toBeInTheDocument()
-        expect(consoleErrorMock).toHaveBeenCalled()
+        expect(screen.queryByText('Barolo (1955)')).not.toBeInTheDocument()
       })
     })
   })

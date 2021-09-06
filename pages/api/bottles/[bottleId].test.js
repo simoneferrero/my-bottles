@@ -1,9 +1,9 @@
 import { createMocks } from 'node-mocks-http'
 import { MongoClient } from 'mongodb'
 
-import handler from './bottles'
+import handler from './[bottleId]'
 
-describe('Given `/api/bottles`', () => {
+describe('Given `/api/bottles/[bottleId]`', () => {
   const mockBeerBottle = {
     _id: 'beer123',
     category: 'BEER',
@@ -35,45 +35,32 @@ describe('Given `/api/bottles`', () => {
     await connection.close()
   })
 
-  describe('When GET /bottles is hit', () => {
-    it('should return all bottles', async () => {
-      const { req, res } = createMocks({
-        method: 'GET',
-      })
-
-      await handler(req, res)
-
-      expect(res._getStatusCode()).toBe(200)
-      expect(JSON.parse(res._getData())).toEqual([mockBeerBottle])
-    })
-  })
-
-  describe('When POST /bottles is hit', () => {
-    it('should return the inserted bottle', async () => {
-      const newBottle = {
-        _id: 'wine123',
-        category: 'WINE',
-        type: 'RED',
-        name: 'Barbera',
-        quantity: '5',
-        volume: '14',
+  describe('When PUT /bottles is hit', () => {
+    it('should return the modified bottle', async () => {
+      const modifiedBeerBottle = {
+        ...mockBeerBottle,
+        name: 'Heineken',
+        volume: '3',
       }
       const { req, res } = createMocks({
-        method: 'POST',
-        body: newBottle,
+        method: 'PUT',
+        body: modifiedBeerBottle,
+        query: {
+          bottleId: mockBeerBottle._id,
+        },
       })
 
       await handler(req, res)
 
       expect(res._getStatusCode()).toBe(200)
-      expect(JSON.parse(res._getData())).toEqual(newBottle)
+      expect(JSON.parse(res._getData())).toEqual(modifiedBeerBottle)
     })
   })
 
-  describe('When PUT /bottles is hit', () => {
+  describe('When a NOT ALLOWED method is hit', () => {
     it('should return an error', async () => {
       const { req, res } = createMocks({
-        method: 'PUT',
+        method: 'PATCH',
         body: {},
       })
 

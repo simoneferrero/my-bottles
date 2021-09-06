@@ -12,7 +12,7 @@ type Props = {
   initialState: BottleFormState
   isOpen: boolean
   onClose: () => void
-  onSubmit: (formValues: BottleFormState, setFormValues?) => () => Promise<void>
+  onSubmit: (formValues: BottleFormState, setFormValues?) => () => void
   size: string
   title: string
 }

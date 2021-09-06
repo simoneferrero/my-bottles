@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { Box } from 'grommet'
 
 import BottleCard from '../../components/BottleCard'
 
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import {
   getBottles,
   selectAllBottles,
@@ -12,10 +12,10 @@ import {
 } from './slice'
 
 const BottlesContainer = (): JSX.Element => {
-  const bottles = useSelector(selectAllBottles)
-  const loading = useSelector(selectLoading)
-  const error = useSelector(selectError)
-  const dispatch = useDispatch()
+  const bottles = useAppSelector(selectAllBottles)
+  const loading = useAppSelector(selectLoading)
+  const error = useAppSelector(selectError)
+  const dispatch = useAppDispatch()
   let body
 
   useEffect(() => {
@@ -29,7 +29,15 @@ const BottlesContainer = (): JSX.Element => {
   } else if (!bottles.length) {
     body = 'There are no bottles in your collection.'
   } else {
-    body = bottles.map((bottle) => <BottleCard {...bottle} key={bottle._id} />)
+    body = bottles
+      .sort((a, b) => {
+        const bottleNameA = a.name.toUpperCase()
+        const bottleNameB = b.name.toUpperCase()
+
+        if (bottleNameA < bottleNameB) return -1
+        return 1
+      })
+      .map((bottle) => <BottleCard {...bottle} key={bottle._id} />)
   }
 
   return (

@@ -7,12 +7,41 @@ import {
 import type { RootState } from '../../app/store'
 import axios from 'axios'
 
-import { Bottle } from '../../types/Bottle'
+import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
+
+import { Bottle, BottleFormState } from '../../types/Bottle'
 
 export const getBottles = createAsyncThunk('bottles/getAll', async () => {
   const { data } = await axios.get('/api/bottles')
   return data
 })
+
+export const addBottle = createAsyncThunk(
+  'bottles/add',
+  async ({
+    formValues,
+    resetFormValues,
+  }: {
+    formValues: BottleFormState
+    resetFormValues: () => unknown
+  }) => {
+    const selectedCategory = BOTTLE_CATEGORIES.find(
+      (bottleCategory) => bottleCategory === formValues.category
+    )
+    const parsedFormValues = {
+      ...formValues,
+      category: formValues.category.value,
+      type: formValues?.type?.value,
+      quantity: Number(formValues.quantity),
+      year: selectedCategory.showYear ? formValues.year : undefined,
+    }
+    const { data } = await axios.post('/api/bottles', parsedFormValues)
+
+    resetFormValues()
+
+    return data
+  }
+)
 
 export const bottlesAdapter = createEntityAdapter<Bottle>({
   selectId: (bottle) => bottle._id,
@@ -43,6 +72,19 @@ export const bottlesSlice = createSlice({
     })
     builder.addCase(getBottles.rejected, (state) => {
       state.error = 'There was an error loading your bottles.'
+      state.loading = false
+    })
+    builder.addCase(addBottle.pending, (state) => {
+      state.error = undefined
+      state.loading = true
+    })
+    builder.addCase(addBottle.fulfilled, (state, action) => {
+      bottlesAdapter.addOne(state, action.payload)
+      state.loading = false
+      state.showAddBottle = false
+    })
+    builder.addCase(addBottle.rejected, (state) => {
+      state.error = 'There was an error adding your bottle.'
       state.loading = false
     })
   },

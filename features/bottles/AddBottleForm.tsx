@@ -1,15 +1,12 @@
-import axios from 'axios'
-
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 import {
+  addBottle,
   selectShowAddBottle,
   setShowAddBottle,
 } from '../../features/bottles/slice'
 
 import BottleForm from '../../components/BottleForm'
-
-import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
 import { BottleFormState } from '../../types/Bottle'
 
@@ -33,28 +30,13 @@ const AddBottleForm = ({ size }: Props): JSX.Element => {
   const handleClose = () => dispatch(setShowAddBottle(false))
 
   const handleSubmit =
-    (formValues: BottleFormState, setFormValues) => async (): Promise<void> => {
-      const selectedCategory = BOTTLE_CATEGORIES.find(
-        (bottleCategory) => bottleCategory === formValues.category
+    (formValues: BottleFormState, setFormValues) => (): void => {
+      dispatch(
+        addBottle({
+          formValues,
+          resetFormValues: () => setFormValues(initialState),
+        })
       )
-      const parsedFormValues = {
-        ...formValues,
-        category: formValues.category.value,
-        type: formValues?.type?.value,
-        quantity: Number(formValues.quantity),
-        year: selectedCategory.showYear ? formValues.year : undefined,
-      }
-      try {
-        const { data } = await axios.post('/api/bottles', parsedFormValues)
-
-        // TODO: Add new bottle to store and display
-        console.log(data)
-
-        handleClose()
-        setFormValues(initialState)
-      } catch (error) {
-        console.error(error)
-      }
     }
 
   return (
