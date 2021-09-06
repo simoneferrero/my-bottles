@@ -24,6 +24,9 @@ describe('Given <BottlesContainer />', () => {
 
       expect(noBottlesMessage).toBeInTheDocument()
 
+      const bottlesOverlay = screen.queryByTestId('bottles-overlay')
+      expect(bottlesOverlay).not.toBeInTheDocument()
+
       server.close()
     })
   })

@@ -9,12 +9,14 @@ import {
   selectAllBottles,
   selectError,
   selectLoading,
+  selectShowAddBottle,
 } from './slice'
 
 const BottlesContainer = (): JSX.Element => {
   const bottles = useAppSelector(selectAllBottles)
   const loading = useAppSelector(selectLoading)
   const error = useAppSelector(selectError)
+  const showAddBottle = useAppSelector(selectShowAddBottle)
   const dispatch = useAppDispatch()
   let body
 
@@ -49,9 +51,26 @@ const BottlesContainer = (): JSX.Element => {
       align="center"
       justify="center"
       pad="medium"
-      overflow="scroll"
+      overflow={{ vertical: 'scroll', horizontal: 'hidden' }}
+      style={{ position: 'relative' }}
     >
       {body}
+      {showAddBottle && (
+        <Box
+          background={{
+            color: 'dark-1',
+            opacity: 'medium',
+          }}
+          data-testid="bottles-overlay"
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            top: 0,
+            left: 0,
+          }}
+        />
+      )}
     </Box>
   )
 }

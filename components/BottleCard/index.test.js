@@ -13,7 +13,7 @@ describe('Given <BottleCard />', () => {
     expect(screen.getByText('Wine: Red')).toBeInTheDocument()
     expect(screen.getByText('ABV: 14%')).toBeInTheDocument()
     expect(screen.getByText('Quantity: 5')).toBeInTheDocument()
-    expect(screen.getByLabelText('Edit Details')).toBeInTheDocument()
+    expect(screen.getByLabelText('Edit Barbera (1990)')).toBeInTheDocument()
   })
 
   it('should display the details of a beer bottle', () => {
@@ -23,7 +23,7 @@ describe('Given <BottleCard />', () => {
     expect(screen.getByText('Beer: Lager')).toBeInTheDocument()
     expect(screen.getByText('ABV: 4.3%')).toBeInTheDocument()
     expect(screen.getByText('Quantity: 10')).toBeInTheDocument()
-    expect(screen.getByLabelText('Edit Details')).toBeInTheDocument()
+    expect(screen.getByLabelText('Edit Hop House 13')).toBeInTheDocument()
   })
 
   it('should display the details of a spirit bottle', () => {
@@ -35,6 +35,8 @@ describe('Given <BottleCard />', () => {
     expect(screen.getByText('Spirit')).toBeInTheDocument()
     expect(screen.getByText('ABV: 43%')).toBeInTheDocument()
     expect(screen.getByText('Quantity: 1')).toBeInTheDocument()
-    expect(screen.getByLabelText('Edit Details')).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('Edit Russian Standard Platinum Vodka')
+    ).toBeInTheDocument()
   })
 })
