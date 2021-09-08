@@ -69,7 +69,7 @@ const initialState: EntityState<Bottle> & {
   bottleFormStatus: 'closed',
   loading: false,
   error: undefined,
-  bottleId: 'Add New Bottle',
+  bottleId: undefined,
 })
 
 export const bottlesSlice = createSlice({
