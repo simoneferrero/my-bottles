@@ -8,23 +8,9 @@ import {
 import type { RootState } from '../../app/store'
 import axios from 'axios'
 
-import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
+import { transformFormDataToBottle } from '../../helpers/bottle'
 
 import { Bottle, BottleFormState } from '../../types/Bottle'
-
-const parseFormValues = (formValues: BottleFormState): Bottle => {
-  const selectedCategory = BOTTLE_CATEGORIES.find(
-    (bottleCategory) => bottleCategory === formValues.category
-  )
-
-  return {
-    ...formValues,
-    category: formValues.category.value,
-    type: formValues?.type?.value,
-    quantity: Number(formValues.quantity),
-    year: selectedCategory.showYear ? formValues.year : undefined,
-  }
-}
 
 export const getBottles = createAsyncThunk('bottles/getAll', async () => {
   const { data } = await axios.get('/api/bottles')
@@ -40,7 +26,7 @@ export const addBottle = createAsyncThunk(
     formValues: BottleFormState
     resetFormValues: () => unknown
   }) => {
-    const parsedFormValues = parseFormValues(formValues)
+    const parsedFormValues = transformFormDataToBottle(formValues)
     const { data } = await axios.post('/api/bottles', parsedFormValues)
 
     resetFormValues()
@@ -58,7 +44,7 @@ export const updateBottle = createAsyncThunk(
     formValues: BottleFormState
     resetFormValues: () => unknown
   }) => {
-    const parsedFormValues = parseFormValues(formValues)
+    const parsedFormValues = transformFormDataToBottle(formValues)
     const { data } = await axios.put(
       `/api/bottles/${parsedFormValues._id}`,
       parsedFormValues

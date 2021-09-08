@@ -8,16 +8,17 @@ import {
   updateBottle,
 } from '../../features/bottles/slice'
 
-import BottleForm from '../../components/BottleForm'
+import Form from '../../components/BottleForm'
+
+import { transformBottleToFormData } from '../../helpers/bottle'
 
 import { BottleFormState } from '../../types/Bottle'
-import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
 type Props = {
   size: 'small' | string
 }
 
-const AddBottleForm = ({ size }: Props): JSX.Element => {
+const BottleForm = ({ size }: Props): JSX.Element => {
   const currentYear = String(new Date().getFullYear())
   const initialState = {
     category: undefined,
@@ -28,18 +29,7 @@ const AddBottleForm = ({ size }: Props): JSX.Element => {
     volume: '0',
   }
   const bottleToUpdate = useAppSelector(selectBottleToUpdate)
-  const selectedCategory = BOTTLE_CATEGORIES.find(
-    (category) => bottleToUpdate?.category === category.value
-  )
-  const selectedType = selectedCategory?.types?.find(
-    (bottleType) => bottleToUpdate?.type === bottleType.value
-  )
-  const bottleState = {
-    ...bottleToUpdate,
-    category: selectedCategory,
-    type: selectedType,
-    quantity: String(bottleToUpdate?.quantity),
-  }
+  const bottleState = transformBottleToFormData(bottleToUpdate)
   const title = bottleToUpdate
     ? `Edit ${bottleToUpdate.name}${
         bottleToUpdate.year ? ` (${bottleToUpdate.year})` : ''
@@ -66,7 +56,7 @@ const AddBottleForm = ({ size }: Props): JSX.Element => {
     }
 
   return (
-    <BottleForm
+    <Form
       initialState={bottleToUpdate ? bottleState : initialState}
       isOpen={bottleFormStatus === 'open'}
       onClose={handleClose}
@@ -77,4 +67,4 @@ const AddBottleForm = ({ size }: Props): JSX.Element => {
   )
 }
 
-export default AddBottleForm
+export default BottleForm
