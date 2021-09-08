@@ -5,7 +5,7 @@ import { useAppDispatch } from '../app/hooks'
 import { setBottleFormOpen } from '../features/bottles/slice'
 
 import AppBar from '../components/AppBar'
-import AddBottleForm from '../features/bottles/AddBottleForm'
+import BottleForm from '../features/bottles/BottleForm'
 import BottlesContainer from '../features/bottles/BottlesContainer'
 
 type Props = {
@@ -29,7 +29,7 @@ const Home = ({ size }: Props): JSX.Element => {
       </AppBar>
       <Box direction="row" flex>
         <BottlesContainer />
-        <AddBottleForm size={size} />
+        <BottleForm size={size} />
       </Box>
     </Box>
   )

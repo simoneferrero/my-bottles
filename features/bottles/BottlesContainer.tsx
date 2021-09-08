@@ -42,6 +42,8 @@ const BottlesContainer = (): JSX.Element => {
       .map((bottle) => <BottleCard {...bottle} key={bottle._id} />)
   }
 
+  const isBottleFormOpen = bottleFormStatus === 'open'
+
   return (
     <Box
       data-test="test"
@@ -51,11 +53,14 @@ const BottlesContainer = (): JSX.Element => {
       align="center"
       justify="center"
       pad="medium"
-      overflow={{ vertical: 'scroll', horizontal: 'hidden' }}
+      overflow={{
+        vertical: 'scroll',
+        horizontal: 'hidden',
+      }}
       style={{ position: 'relative' }}
     >
       {body}
-      {bottleFormStatus === 'open' && (
+      {isBottleFormOpen && (
         <Box
           background={{
             color: 'dark-1',
@@ -63,7 +68,7 @@ const BottlesContainer = (): JSX.Element => {
           }}
           data-testid="bottles-overlay"
           style={{
-            position: 'absolute',
+            position: 'fixed',
             height: '100%',
             width: '100%',
             top: 0,

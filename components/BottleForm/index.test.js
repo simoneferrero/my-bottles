@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor } from '../../utils/test-utils'
 import userEvent from '@testing-library/user-event'
 
-import AddBottleForm from './'
+import BottleForm from './'
 
 import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
@@ -10,7 +10,7 @@ const consoleErrorMock = jest
   .spyOn(console, 'error')
   .mockImplementation(() => {})
 
-describe('Given <AddBottleForm />', () => {
+describe('Given <BottleForm />', () => {
   const onSubmitMock = jest.fn()
   const onCloseMock = jest.fn()
   const emptyInitialState = {
@@ -36,7 +36,7 @@ describe('Given <AddBottleForm />', () => {
 
   const renderForm = ({ initialState, isOpen, size, title } = {}) =>
     render(
-      <AddBottleForm
+      <BottleForm
         initialState={initialState || emptyInitialState}
         isOpen={isOpen ?? true}
         onSubmit={onSubmitMock}
@@ -173,20 +173,17 @@ describe('Given <AddBottleForm />', () => {
             userEvent.click(getSubmitButton())
 
             await waitFor(() => {
-              expect(onSubmitMock).toHaveBeenLastCalledWith(
-                {
-                  category: BOTTLE_CATEGORIES[0],
-                  type: {
-                    label: 'Red',
-                    value: 'RED',
-                  },
-                  year: '1990',
-                  name: 'Nebbiolo',
-                  volume: '14',
-                  quantity: '5',
+              expect(onSubmitMock).toHaveBeenLastCalledWith({
+                category: BOTTLE_CATEGORIES[0],
+                type: {
+                  label: 'Red',
+                  value: 'RED',
                 },
-                expect.any(Function)
-              )
+                year: '1990',
+                name: 'Nebbiolo',
+                volume: '14',
+                quantity: '5',
+              })
             })
           })
         })
@@ -241,21 +238,18 @@ describe('Given <AddBottleForm />', () => {
 
       userEvent.click(getSubmitButton())
 
-      expect(onSubmitMock).toHaveBeenLastCalledWith(
-        {
-          _id: '6127b44de29fea073d0109fb',
-          category: BOTTLE_CATEGORIES[0],
-          type: {
-            label: 'Red',
-            value: 'RED',
-          },
-          year: '1990',
-          name: 'Barbaresco',
-          volume: '14',
-          quantity: 5,
+      expect(onSubmitMock).toHaveBeenLastCalledWith({
+        _id: '6127b44de29fea073d0109fb',
+        category: BOTTLE_CATEGORIES[0],
+        type: {
+          label: 'Red',
+          value: 'RED',
         },
-        expect.any(Function)
-      )
+        year: '1990',
+        name: 'Barbaresco',
+        volume: '14',
+        quantity: 5,
+      })
     })
   })
 

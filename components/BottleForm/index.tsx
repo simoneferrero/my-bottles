@@ -84,7 +84,7 @@ const BottleForm = ({
       overflow={{ horizontal: 'hidden' }}
       pad="medium"
     >
-      <Form onSubmit={onSubmit(formValues, setFormValues)}>
+      <Form onSubmit={onSubmit(formValues)}>
         <FormField htmlFor="category" label="Category">
           <Select
             id="category"

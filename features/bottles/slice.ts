@@ -19,17 +19,9 @@ export const getBottles = createAsyncThunk('bottles/getAll', async () => {
 
 export const addBottle = createAsyncThunk(
   'bottles/add',
-  async ({
-    formValues,
-    resetFormValues,
-  }: {
-    formValues: BottleFormState
-    resetFormValues: () => unknown
-  }) => {
+  async ({ formValues }: { formValues: BottleFormState }) => {
     const parsedFormValues = transformFormDataToBottle(formValues)
     const { data } = await axios.post('/api/bottles', parsedFormValues)
-
-    resetFormValues()
 
     return data
   }
@@ -37,20 +29,12 @@ export const addBottle = createAsyncThunk(
 
 export const updateBottle = createAsyncThunk(
   'bottles/update',
-  async ({
-    formValues,
-    resetFormValues,
-  }: {
-    formValues: BottleFormState
-    resetFormValues: () => unknown
-  }) => {
+  async ({ formValues }: { formValues: BottleFormState }) => {
     const parsedFormValues = transformFormDataToBottle(formValues)
     const { data } = await axios.put(
       `/api/bottles/${parsedFormValues._id}`,
       parsedFormValues
     )
-
-    resetFormValues()
 
     return data
   }

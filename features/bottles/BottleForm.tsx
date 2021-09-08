@@ -6,7 +6,7 @@ import {
   setBottleFormClosed,
   selectBottleToUpdate,
   updateBottle,
-} from '../../features/bottles/slice'
+} from './slice'
 
 import Form from '../../components/BottleForm'
 
@@ -40,20 +40,17 @@ const BottleForm = ({ size }: Props): JSX.Element => {
   const dispatch = useAppDispatch()
   const handleClose = () => dispatch(setBottleFormClosed())
 
-  const handleSubmit =
-    (formValues: BottleFormState, setFormValues) => (): void => {
-      dispatch(
-        bottleToUpdate
-          ? updateBottle({
-              formValues,
-              resetFormValues: () => setFormValues(initialState),
-            })
-          : addBottle({
-              formValues,
-              resetFormValues: () => setFormValues(initialState),
-            })
-      )
-    }
+  const handleSubmit = (formValues: BottleFormState) => (): void => {
+    dispatch(
+      bottleToUpdate
+        ? updateBottle({
+            formValues,
+          })
+        : addBottle({
+            formValues,
+          })
+    )
+  }
 
   return (
     <Form
