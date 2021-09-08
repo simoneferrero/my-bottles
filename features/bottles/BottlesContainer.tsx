@@ -9,14 +9,14 @@ import {
   selectAllBottles,
   selectError,
   selectLoading,
-  selectShowAddBottle,
+  selectBottleFormStatus,
 } from './slice'
 
 const BottlesContainer = (): JSX.Element => {
   const bottles = useAppSelector(selectAllBottles)
   const loading = useAppSelector(selectLoading)
   const error = useAppSelector(selectError)
-  const showAddBottle = useAppSelector(selectShowAddBottle)
+  const bottleFormStatus = useAppSelector(selectBottleFormStatus)
   const dispatch = useAppDispatch()
   let body
 
@@ -55,7 +55,7 @@ const BottlesContainer = (): JSX.Element => {
       style={{ position: 'relative' }}
     >
       {body}
-      {showAddBottle && (
+      {bottleFormStatus === 'open' && (
         <Box
           background={{
             color: 'dark-1',

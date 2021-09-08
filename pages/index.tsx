@@ -2,7 +2,7 @@ import { Box, Button, Heading } from 'grommet'
 import { Add } from 'grommet-icons'
 import { useAppDispatch } from '../app/hooks'
 
-import { setShowAddBottle } from '../features/bottles/slice'
+import { setBottleFormOpen } from '../features/bottles/slice'
 
 import AppBar from '../components/AppBar'
 import AddBottleForm from '../features/bottles/AddBottleForm'
@@ -24,7 +24,7 @@ const Home = ({ size }: Props): JSX.Element => {
         <Button
           a11yTitle="Add new bottle button"
           icon={<Add />}
-          onClick={() => dispatch(setShowAddBottle(true))}
+          onClick={() => dispatch(setBottleFormOpen())}
         />
       </AppBar>
       <Box direction="row" flex>

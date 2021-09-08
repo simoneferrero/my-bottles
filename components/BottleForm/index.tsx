@@ -1,5 +1,5 @@
 import { Box, Button, Form, FormField, Select, TextInput } from 'grommet'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Overlay from '../Overlay'
 import Sidebar from '../Sidebar'
@@ -27,6 +27,10 @@ const BottleForm = ({
 }: Props): JSX.Element => {
   const currentYear = String(new Date().getFullYear())
   const [formValues, setFormValues] = useState(initialState)
+
+  useEffect(() => {
+    setFormValues(initialState)
+  }, [isOpen])
 
   const handleSelect =
     (key: string, forcedValues: { [key: string]: string }) =>

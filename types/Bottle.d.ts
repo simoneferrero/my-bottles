@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 
 export type Bottle = {
-  _id: ObjectId
+  _id?: ObjectId
   category: 'WINE' | 'BEER' | 'SPIRIT'
   type?: string
   year?: string

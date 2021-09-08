@@ -10,6 +10,9 @@ import {
 } from 'grommet'
 import { Edit } from 'grommet-icons'
 
+import { useAppDispatch } from '../../app/hooks'
+import { setBottleFormOpen } from '../../features/bottles/slice'
+
 import { Bottle } from '../../types/Bottle'
 import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
@@ -22,6 +25,7 @@ const BottleCard = ({
   _id,
   quantity,
 }: Bottle): JSX.Element => {
+  const dispatch = useAppDispatch()
   const selectedCategory = BOTTLE_CATEGORIES.find(
     (bottleCategory) => category === bottleCategory.value
   )
@@ -70,7 +74,11 @@ const BottleCard = ({
       <CardFooter pad="small" background="light-2" justify="between">
         <Box>{displayQuantity}</Box>
         {/* TODO: Add action to open edit menu */}
-        <Button a11yTitle="Edit Details" icon={<Edit />} />
+        <Button
+          a11yTitle={`Edit ${displayName}`}
+          icon={<Edit />}
+          onClick={() => dispatch(setBottleFormOpen(_id))}
+        />
       </CardFooter>
     </Card>
   )

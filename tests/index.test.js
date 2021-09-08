@@ -12,6 +12,7 @@ describe('Given <Home />', () => {
 
   const getAddNewBottleButton = () => screen.getByLabelText('Add')
   const getAddNewBottleTitle = () => screen.queryByText('Add New Bottle')
+  const getModifyBottleTitle = () => screen.queryByText('Edit Barbera (1990)')
   const getCategoryInput = () => screen.getByLabelText('Category')
   const getTypeInput = () => screen.getByLabelText('Type')
   const getNameInput = () => screen.getByLabelText('Name')
@@ -21,6 +22,7 @@ describe('Given <Home />', () => {
   const getSubmitButton = () => screen.getByText('Add')
   const getWineOption = () => screen.getByText('Wine')
   const getRedOption = () => screen.getByText('Red')
+  const getEditWineButton = () => screen.getByLabelText('Edit Barbera (1990)')
 
   beforeAll(() => {
     server.listen()
@@ -42,6 +44,47 @@ describe('Given <Home />', () => {
     expect(screen.getByText('My Bottles')).toBeInTheDocument()
   })
 
+  describe('When the user modifies an existing bottle', () => {
+    beforeEach(async () => {
+      await waitFor(() => {
+        const editWineButton = getEditWineButton()
+
+        userEvent.click(editWineButton)
+      })
+    })
+
+    it('should update the bottle on success', async () => {
+      server.use(successHandlers.putBottle)
+
+      const modifyBottleTitle = getModifyBottleTitle()
+      expect(modifyBottleTitle).toBeInTheDocument()
+
+      fireEvent.change(getNameInput(), { target: { value: 'Nebbiolo' } })
+      fireEvent.change(getYearInput(), { target: { value: '1989' } })
+
+      fireEvent.click(getSubmitButton())
+
+      await waitFor(() => {
+        expect(modifyBottleTitle).not.toBeInTheDocument()
+        expect(screen.getByText('Nebbiolo (1989)')).toBeInTheDocument()
+      })
+    })
+
+    it('should NOT submit the data on failure', async () => {
+      server.use(errorHandlers.putBottle)
+
+      const modifyBottleTitle = getModifyBottleTitle()
+      expect(modifyBottleTitle).toBeInTheDocument()
+
+      fireEvent.click(getSubmitButton())
+
+      await waitFor(() => {
+        expect(modifyBottleTitle).toBeInTheDocument()
+        expect(screen.queryByText('Nebbiolo (1989)')).not.toBeInTheDocument()
+      })
+    })
+  })
+
   describe('When the user adds a new bottle', () => {
     beforeEach(() => {
       userEvent.click(getAddNewBottleButton())
@@ -60,6 +103,9 @@ describe('Given <Home />', () => {
 
       const addNewBottleTitle = getAddNewBottleTitle()
       expect(addNewBottleTitle).toBeInTheDocument()
+
+      const bottlesOverlay = screen.getByTestId('bottles-overlay')
+      expect(bottlesOverlay).toBeInTheDocument()
 
       fireEvent.click(getSubmitButton())
 

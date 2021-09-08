@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Sidebar = ({ children, isOpen, onClose, title }: Props): JSX.Element => (
-  <Collapsible direction="horizontal" open={isOpen}>
+  <Collapsible direction="horizontal" open={isOpen} style={{ zIndex: 100 }}>
     <DrawerHeader onClose={onClose} title={title} />
     <Box
       data-testid="sidebar"
