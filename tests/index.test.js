@@ -45,6 +45,7 @@ describe('Given <Home />', () => {
   })
 
   describe('When the user modifies an existing bottle', () => {
+    // TODO: test AWS upload
     beforeEach(async () => {
       await waitFor(() => {
         const editWineButton = getEditWineButton()
@@ -86,6 +87,7 @@ describe('Given <Home />', () => {
   })
 
   describe('When the user adds a new bottle', () => {
+    // TODO: test AWS upload
     beforeEach(() => {
       userEvent.click(getAddNewBottleButton())
       userEvent.click(getCategoryInput())
@@ -103,9 +105,6 @@ describe('Given <Home />', () => {
 
       const addNewBottleTitle = getAddNewBottleTitle()
       expect(addNewBottleTitle).toBeInTheDocument()
-
-      const bottlesOverlay = screen.getByTestId('bottles-overlay')
-      expect(bottlesOverlay).toBeInTheDocument()
 
       fireEvent.click(getSubmitButton())
 

@@ -8,6 +8,7 @@ export const wineBottle: Bottle = {
   name: 'Barbera',
   volume: '14',
   quantity: 5,
+  imageUrl: undefined,
 }
 
 export const beerBottle: Bottle = {
@@ -17,6 +18,8 @@ export const beerBottle: Bottle = {
   name: 'Hop House 13',
   volume: '4.3',
   quantity: 10,
+  imageUrl: undefined,
+  year: undefined,
 }
 
 export const spiritBottle: Bottle = {
@@ -25,6 +28,8 @@ export const spiritBottle: Bottle = {
   name: 'Russian Standard Platinum Vodka',
   volume: '43',
   quantity: 1,
+  imageUrl: undefined,
+  year: undefined,
 }
 
 export const wineFormData: BottleFormState = {

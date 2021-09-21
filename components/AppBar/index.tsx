@@ -13,7 +13,6 @@ const AppBar = ({ children }: Props): JSX.Element => (
     background="brand"
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     elevation="medium"
-    style={{ zIndex: 1 }}
   >
     {children}
   </Box>

@@ -18,6 +18,7 @@ const BottlesContainer = (): JSX.Element => {
   const error = useAppSelector(selectError)
   const bottleFormStatus = useAppSelector(selectBottleFormStatus)
   const dispatch = useAppDispatch()
+  const isBottleFormOpen = bottleFormStatus === 'open'
   let body
 
   useEffect(() => {
@@ -39,10 +40,10 @@ const BottlesContainer = (): JSX.Element => {
         if (bottleNameA < bottleNameB) return -1
         return 1
       })
-      .map((bottle) => <BottleCard {...bottle} key={bottle._id} />)
+      .map((bottle) => (
+        <BottleCard {...bottle} key={bottle._id} disabled={isBottleFormOpen} />
+      ))
   }
-
-  const isBottleFormOpen = bottleFormStatus === 'open'
 
   return (
     <Box
@@ -60,22 +61,6 @@ const BottlesContainer = (): JSX.Element => {
       style={{ position: 'relative' }}
     >
       {body}
-      {isBottleFormOpen && (
-        <Box
-          background={{
-            color: 'dark-1',
-            opacity: 'medium',
-          }}
-          data-testid="bottles-overlay"
-          style={{
-            position: 'fixed',
-            height: '100%',
-            width: '100%',
-            top: 0,
-            left: 0,
-          }}
-        />
-      )}
     </Box>
   )
 }

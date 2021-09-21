@@ -20,7 +20,6 @@ const Sidebar = ({ children, isOpen, onClose, title }: Props): JSX.Element => (
       elevation="small"
       align="center"
       justify="center"
-      style={{ zIndex: 200 }}
     >
       {children}
     </Box>

@@ -14,7 +14,6 @@ const DrawerHeader = ({ onClose, title }: Props): JSX.Element => (
     align="center"
     direction="row"
     pad={{ left: 'medium' }}
-    style={{ zIndex: 200 }}
   >
     <Heading level="4" margin="none">
       {title}

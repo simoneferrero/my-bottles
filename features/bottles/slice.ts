@@ -7,10 +7,49 @@ import {
 } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store'
 import axios from 'axios'
+import AWS from 'aws-sdk'
 
-import { transformFormDataToBottle } from '../../helpers/bottle'
+import { parseFormValues } from '../../helpers/bottle'
 
 import { Bottle, BottleFormState } from '../../types/Bottle'
+
+const AWS_ACCESS_KEY_ID = process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID
+const AWS_SECRET_ACCESS_KEY = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
+const AWS_REGION = process.env.NEXT_PUBLIC_AWS_REGION
+const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET
+const AWS_S3_DOMAIN = process.env.NEXT_PUBLIC_AWS_S3_DOMAIN
+
+AWS.config.update({
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+})
+
+const myBottlesBucket = new AWS.S3({
+  params: { Bucket: AWS_BUCKET },
+  region: AWS_REGION,
+})
+
+const getS3PutObjectParams = (image, name) => ({
+  ACL: 'public-read',
+  Body: image,
+  Bucket: AWS_BUCKET,
+  Key: name,
+})
+
+const uploadImage = async (image) => {
+  if (!image) return
+
+  const imageName = `${Date.now()}_${image.name.replaceAll(' ', '_')}`
+  const uploadedFile = await myBottlesBucket
+    .putObject(getS3PutObjectParams(image, imageName))
+    .promise()
+
+  if (uploadedFile.$response.httpResponse.statusCode !== 200) {
+    throw new Error('There was an error uploading your image')
+  }
+
+  return AWS_S3_DOMAIN + imageName
+}
 
 export const getBottles = createAsyncThunk('bottles/getAll', async () => {
   const { data } = await axios.get('/api/bottles')
@@ -20,7 +59,9 @@ export const getBottles = createAsyncThunk('bottles/getAll', async () => {
 export const addBottle = createAsyncThunk(
   'bottles/add',
   async ({ formValues }: { formValues: BottleFormState }) => {
-    const parsedFormValues = transformFormDataToBottle(formValues)
+    const imageUrl = await uploadImage(formValues?.images?.[0])
+
+    const parsedFormValues = parseFormValues(formValues, imageUrl)
     const { data } = await axios.post('/api/bottles', parsedFormValues)
 
     return data
@@ -30,9 +71,11 @@ export const addBottle = createAsyncThunk(
 export const updateBottle = createAsyncThunk(
   'bottles/update',
   async ({ formValues }: { formValues: BottleFormState }) => {
-    const parsedFormValues = transformFormDataToBottle(formValues)
+    const imageUrl = await uploadImage(formValues?.images?.[0])
+
+    const parsedFormValues = parseFormValues(formValues, imageUrl)
     const { data } = await axios.put(
-      `/api/bottles/${parsedFormValues._id}`,
+      `/api/bottles/${formValues._id}`,
       parsedFormValues
     )
 
@@ -41,7 +84,7 @@ export const updateBottle = createAsyncThunk(
 )
 
 export const bottlesAdapter = createEntityAdapter<Bottle>({
-  selectId: (bottle) => bottle._id,
+  selectId: (bottle) => bottle._id.toString(),
 })
 
 const initialState: EntityState<Bottle> & {

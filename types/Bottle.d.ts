@@ -8,6 +8,7 @@ export type Bottle = {
   name: string
   volume: string
   quantity: number
+  imageUrl?: string
 }
 
 export interface BottleType {
@@ -26,11 +27,12 @@ export interface BottleCategory {
 }
 
 export type BottleFormState = {
-  _id?: string
+  _id?: ObjectId
   category?: BottleCategory
   type?: BottleType
   year?: string
   name: string
   volume: string
   quantity: string
+  images?: FileList
 }

@@ -16,6 +16,10 @@ import { setBottleFormOpen } from '../../features/bottles/slice'
 import { Bottle } from '../../types/Bottle'
 import BOTTLE_CATEGORIES from '../../constants/bottleCategories'
 
+interface Props extends Bottle {
+  disabled: boolean
+}
+
 const BottleCard = ({
   category,
   name,
@@ -24,7 +28,9 @@ const BottleCard = ({
   year,
   _id,
   quantity,
-}: Bottle): JSX.Element => {
+  disabled,
+  imageUrl,
+}: Props): JSX.Element => {
   const dispatch = useAppDispatch()
   const selectedCategory = BOTTLE_CATEGORIES.find(
     (bottleCategory) => category === bottleCategory.value
@@ -37,13 +43,15 @@ const BottleCard = ({
     selectedType ? `: ${selectedType.label}` : ''
   }`
   const displayQuantity = `Quantity: ${quantity}`
+  const backgroundImage =
+    imageUrl || 'https://www.the-wine.club/admin/logo/bottle.png'
 
   return (
     <Card
       height="medium"
       width="medium"
       background={{
-        image: 'url(https://www.the-wine.club/admin/logo/bottle.png)',
+        image: `url(${backgroundImage})`,
         position: 'center',
         size: 'contain',
       }}
@@ -73,11 +81,11 @@ const BottleCard = ({
       <CardBody />
       <CardFooter pad="small" background="light-2" justify="between">
         <Box>{displayQuantity}</Box>
-        {/* TODO: Add action to open edit menu */}
         <Button
           a11yTitle={`Edit ${displayName}`}
           icon={<Edit />}
           onClick={() => dispatch(setBottleFormOpen(_id))}
+          disabled={disabled} // TODO: test this case
         />
       </CardFooter>
     </Card>

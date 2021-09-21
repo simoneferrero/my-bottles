@@ -14,21 +14,26 @@ export const transformBottleToFormData = (bottle: Bottle): BottleFormState => {
     category: selectedCategory,
     type: selectedType,
     quantity: String(bottle?.quantity),
+    images: undefined,
   }
 }
 
-export const transformFormDataToBottle = (
-  formData: BottleFormState
+export const parseFormValues = (
+  formValues: BottleFormState,
+  imageUrl: string
 ): Bottle => {
-  const selectedCategory = BOTTLE_CATEGORIES.find(
-    (bottleCategory) => bottleCategory.value === formData.category.value
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { category, _id, images, type, quantity, year, ...data } = formValues
+  const { showYear } = BOTTLE_CATEGORIES.find(
+    (bottleCategory) => bottleCategory.value === category.value
   )
 
   return {
-    ...formData,
-    category: formData.category.value,
-    type: formData?.type?.value,
-    quantity: Number(formData.quantity),
-    year: selectedCategory.showYear ? formData.year : undefined,
+    ...data,
+    category: category.value,
+    type: type?.value,
+    quantity: Number(quantity),
+    year: showYear ? year : undefined,
+    imageUrl,
   }
 }

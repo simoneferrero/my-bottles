@@ -1,4 +1,4 @@
-import { transformBottleToFormData, transformFormDataToBottle } from './bottle'
+import { transformBottleToFormData, parseFormValues } from './bottle'
 
 import {
   wineBottle,
@@ -22,17 +22,25 @@ describe('Given bottle helpers', () => {
     })
   })
 
-  describe('And `transformFormDataToBottle', () => {
+  describe('And `parseFormValues', () => {
     it('should correctly transform form data to a bottle when the year is present', () => {
-      const transformedBottle = transformFormDataToBottle(wineFormData)
+      const transformedBottle = parseFormValues(wineFormData)
+      const expectedResult = {
+        ...wineBottle,
+      }
+      delete expectedResult._id
 
-      expect(transformedBottle).toEqual(wineBottle)
+      expect(transformedBottle).toEqual(expectedResult)
     })
 
     it('should correctly transform form data to a bottle when the year is NOT present', () => {
-      const transformedBottle = transformFormDataToBottle(beerFormData)
+      const transformedBottle = parseFormValues(beerFormData)
+      const expectedResult = {
+        ...beerBottle,
+      }
+      delete expectedResult._id
 
-      expect(transformedBottle).toEqual(beerBottle)
+      expect(transformedBottle).toEqual(expectedResult)
     })
   })
 })

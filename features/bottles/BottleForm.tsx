@@ -27,6 +27,7 @@ const BottleForm = ({ size }: Props): JSX.Element => {
     year: currentYear,
     quantity: '0',
     volume: '0',
+    images: undefined,
   }
   const bottleToUpdate = useAppSelector(selectBottleToUpdate)
   const bottleState = transformBottleToFormData(bottleToUpdate)

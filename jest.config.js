@@ -13,6 +13,7 @@ module.exports = {
     '!**/*config.*',
     '!**/lib/mongodb.ts',
     '!**/_app.tsx',
+    '!**/.next/**',
   ],
   testEnvironment: 'jsdom',
   coverageThreshold: {

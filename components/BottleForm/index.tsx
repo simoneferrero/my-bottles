@@ -1,4 +1,12 @@
-import { Box, Button, Form, FormField, Select, TextInput } from 'grommet'
+import {
+  Box,
+  Button,
+  FileInput,
+  Form,
+  FormField,
+  Select,
+  TextInput,
+} from 'grommet'
 import { useEffect, useState } from 'react'
 
 import Overlay from '../Overlay'
@@ -151,6 +159,19 @@ const BottleForm = ({
                 title="How many bottles of this type you have"
                 type="number"
                 value={formValues.quantity}
+              />
+            </FormField>
+            <FormField htmlFor="image" label="Image">
+              <FileInput
+                id="image"
+                accept="image/png, image/jpeg"
+                multiple={false}
+                onChange={({ target: { files } }) =>
+                  setFormValues((prevFormValues) => ({
+                    ...prevFormValues,
+                    images: files,
+                  }))
+                }
               />
             </FormField>
             <Button
